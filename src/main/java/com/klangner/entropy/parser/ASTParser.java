@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import com.klangner.entropy.parser.java.JavaLexer;
 import com.klangner.entropy.parser.java.JavaParser;
 
-public class SyntaxParser {
+public class ASTParser {
 
 	public ParseTree parse(InputStream is) throws IOException{
 		ANTLRInputStream input = new ANTLRInputStream(is);
