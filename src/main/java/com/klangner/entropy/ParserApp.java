@@ -1,4 +1,4 @@
-package com.klangner.entrophy;
+package com.klangner.entropy;
 
 public class ParserApp {
 
