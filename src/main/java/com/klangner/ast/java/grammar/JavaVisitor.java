@@ -1,5 +1,5 @@
 // Generated from /home/klangner/workspaces/cs/entrophy/src/main/java/com/klangner/entrophy/parser/java/Java.g4 by ANTLR 4.0
-package com.klangner.entropy.parser.java;
+package com.klangner.ast.java.grammar;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 public interface JavaVisitor<T> extends ParseTreeVisitor<T> {

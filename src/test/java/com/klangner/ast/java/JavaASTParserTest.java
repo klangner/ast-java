@@ -1,4 +1,4 @@
-package com.klangner.entropy.parser;
+package com.klangner.ast.java;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,24 +6,25 @@ import static org.junit.Assert.assertNotNull;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
-public class ASTParserTest {
+import com.klangner.ast.INode;
+
+public class JavaASTParserTest {
 
 	@Test
 	public void astNotNull() throws IOException {
-		ParseTree ast = getHelloWorldAST();
+		INode ast = getHelloWorldAST();
 		
 		assertNotNull(ast);
 	}
 
-	private ParseTree getHelloWorldAST(){
-		ParseTree ast = null;
+	private INode getHelloWorldAST(){
+		INode ast = null;
 		try {
-			ASTParser parser = new ASTParser();
+			JavaASTParser parser = new JavaASTParser();
 			FileInputStream fis = new FileInputStream("src/test/datasets/project1/HelloWorld.java");
-			ast = parser.parse(fis);
+			ast = parser.parseFile(fis);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -34,7 +35,7 @@ public class ASTParserTest {
 
 	@Test
 	public void testClassName() throws IOException {
-		ParseTree ast = getHelloWorldAST();
+		INode ast = getHelloWorldAST();
 //		ParseTreeWalker walker = new ParseTreeWalker();
 //        ParseTreeListener sss;
 //        walker.walk(sss, ast);
