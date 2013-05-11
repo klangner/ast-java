@@ -32,11 +32,17 @@ public class JavaASTParserTest {
 		return ast;
 	}
 
-
 	@Test
 	public void testClassName() throws IOException {
 		INode ast = getHelloWorldAST();
 		
 		assertEquals("HelloWorld", ast.getName());
+	}
+
+	@Test
+	public void classChildcount() throws IOException {
+		INode ast = getHelloWorldAST();
+		
+		assertEquals(4, ast.getChildCount());
 	}
 }

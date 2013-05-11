@@ -5,6 +5,8 @@ import java.io.InputStream;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import com.klangner.ast.INode;
 import com.klangner.ast.IParser;
@@ -20,8 +22,9 @@ public class JavaASTParser implements IParser{
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JavaParser parser = new JavaParser(tokens);
         ASTBuilder builder = new ASTBuilder();
-        parser.addParseListener(builder);
-        parser.compilationUnit();
+        ParseTree tree = parser.compilationUnit();
+        ParseTreeWalker walker = new ParseTreeWalker();
+        walker.walk(builder, tree);
         return builder.getAST();
 	}
 

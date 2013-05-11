@@ -1,10 +1,14 @@
 package com.klangner.ast.java;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.klangner.ast.INode;
 
 class NodeImpl implements INode {
 
 	private String name;
+	private List<INode> children = new ArrayList<INode>(); 
 	
 	
 	public NodeImpl(String name) {
@@ -14,6 +18,20 @@ class NodeImpl implements INode {
 	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public INode getChild(int index) {
+		return children.get(index);
+	}
+
+	@Override
+	public int getChildCount() {
+		return children.size();
+	}
+
+	public void addChild(INode node) {
+		children.add(node);
 	}
 
 }
