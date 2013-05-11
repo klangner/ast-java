@@ -10,7 +10,6 @@ import com.klangner.ast.INode;
 import com.klangner.ast.IParser;
 import com.klangner.ast.java.grammar.JavaLexer;
 import com.klangner.ast.java.grammar.JavaParser;
-import com.klangner.ast.java.grammar.JavaParser.CompilationUnitContext;
 
 public class JavaASTParser implements IParser{
 
@@ -20,8 +19,10 @@ public class JavaASTParser implements IParser{
         JavaLexer lexer = new JavaLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JavaParser parser = new JavaParser(tokens);
-        CompilationUnitContext context = parser.compilationUnit();
-        return new NodeImpl(context);
+        ASTBuilder builder = new ASTBuilder();
+        parser.addParseListener(builder);
+        parser.compilationUnit();
+        return builder.getAST();
 	}
 
 	@Override

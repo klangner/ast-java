@@ -36,12 +36,7 @@ public class JavaASTParserTest {
 	@Test
 	public void testClassName() throws IOException {
 		INode ast = getHelloWorldAST();
-//		ParseTreeWalker walker = new ParseTreeWalker();
-//        ParseTreeListener sss;
-//        walker.walk(sss, ast);
-//        ParseTreeVisitor<? extends Object> visitor;
-//		ast.accept(visitor);
 		
-		assertEquals("HelloWorld", ast.toString());
+		assertEquals("HelloWorld", ast.getName());
 	}
 }
