@@ -1,5 +1,5 @@
 
-public class HelloWorld {
+public class World {
 
 	private String message = "My message";
 	

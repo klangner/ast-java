@@ -1,7 +1,6 @@
 package com.klangner.ast.java;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
@@ -15,29 +14,27 @@ public class JavaASTParserTest {
 	
 	
 	@Test
-	public void astNotNull() throws IOException {
-		INode ast = getHelloWorldAST();
-		
-		assertNotNull(ast);
-	}
-
-	private INode getHelloWorldAST(){
+	public void testClassName() throws IOException {
 		JavaASTParser parser = new JavaASTParser();
 		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
-		return ast;
-	}
-
-	@Test
-	public void testClassName() throws IOException {
-		INode ast = getHelloWorldAST();
 		
 		assertEquals("HelloWorld", ast.getName());
 	}
 
 	@Test
-	public void classChildcount() throws IOException {
-		INode ast = getHelloWorldAST();
+	public void classChildCount() throws IOException {
+		JavaASTParser parser = new JavaASTParser();
+		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
 		
 		assertEquals(4, ast.getChildCount());
 	}
+
+	@Test
+	public void packageClasses() throws IOException {
+		JavaASTParser parser = new JavaASTParser();
+		INode ast = parser.parsePackage(DATASET_PATH + "project2");
+		
+		assertEquals(2, ast.getChildCount());
+	}
+
 }
