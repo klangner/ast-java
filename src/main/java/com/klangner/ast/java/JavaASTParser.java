@@ -1,7 +1,8 @@
 package com.klangner.ast.java;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -13,23 +14,49 @@ import com.klangner.ast.IParser;
 import com.klangner.ast.java.grammar.JavaLexer;
 import com.klangner.ast.java.grammar.JavaParser;
 
+/**
+ * AST parser for Java source file
+ * 
+ * @author Krzysztof Langner
+ *
+ */
 public class JavaASTParser implements IParser{
 
 	@Override
-	public INode parseFile(InputStream is) throws IOException{
-		ANTLRInputStream input = new ANTLRInputStream(is);
-        JavaLexer lexer = new JavaLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        JavaParser parser = new JavaParser(tokens);
+	public INode parseFile(String fileName) {
         ASTBuilder builder = new ASTBuilder();
-        ParseTree tree = parser.compilationUnit();
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(builder, tree);
+
+        try{
+			ParseTree tree = compileFile(fileName);
+	        ParseTreeWalker walker = new ParseTreeWalker();
+	        walker.walk(builder, tree);
+        }
+        catch(IOException e){
+        	e.printStackTrace();
+        }
+        
         return builder.getAST();
 	}
 
+	private ParseTree compileFile(String fileName) throws FileNotFoundException, IOException {
+		FileInputStream inputStream = new FileInputStream(fileName);
+		ANTLRInputStream input = new ANTLRInputStream(inputStream);
+        JavaLexer lexer = new JavaLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JavaParser parser = new JavaParser(tokens);
+        ParseTree tree = parser.compilationUnit();
+		return tree;
+	}
+
 	@Override
-	public INode parseFolder(String path) throws IOException {
+	public INode parsePackage(String path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public INode parseProject(String path) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -3,7 +3,6 @@ package com.klangner.ast.java;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -12,6 +11,9 @@ import com.klangner.ast.INode;
 
 public class JavaASTParserTest {
 
+	private static final String DATASET_PATH = "src/test/datasets/";
+	
+	
 	@Test
 	public void astNotNull() throws IOException {
 		INode ast = getHelloWorldAST();
@@ -20,15 +22,8 @@ public class JavaASTParserTest {
 	}
 
 	private INode getHelloWorldAST(){
-		INode ast = null;
-		try {
-			JavaASTParser parser = new JavaASTParser();
-			FileInputStream fis = new FileInputStream("src/test/datasets/project1/HelloWorld.java");
-			ast = parser.parseFile(fis);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		JavaASTParser parser = new JavaASTParser();
+		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
 		return ast;
 	}
 
