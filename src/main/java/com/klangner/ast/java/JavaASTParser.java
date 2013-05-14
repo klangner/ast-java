@@ -70,7 +70,26 @@ public class JavaASTParser implements IParser{
 
 	@Override
 	public INode parseProject(String path) {
-		// TODO Auto-generated method stub
-		return null;
+		NodeImpl rootNode = new NodeImpl(path);
+		File folder = new File(path);
+		
+		if(folder.isDirectory()){
+			File[] files = folder.listFiles();
+			for(int i = 0; i < files.length; i++){
+				File file = files[i];
+				if(file.isFile()){
+					if(file.getName().endsWith(".java")){
+						INode node = new NodeImpl(file.getName());
+						rootNode.addChild(node);
+					}
+				}
+				else{
+					INode node = new NodeImpl(file.getName());
+					rootNode.addChild(node);
+				}
+			}
+		}
+		
+		return rootNode;
 	}
 }
