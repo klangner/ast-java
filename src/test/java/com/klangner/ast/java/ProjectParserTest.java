@@ -14,7 +14,7 @@ import com.klangner.ast.IPackage;
 
 public class ProjectParserTest {
 
-	private static final String DATASET_PATH = "src/test/datasets/";
+	private static final String DATASET_PATH = "datasets/";
 	
 	@Test
 	public void rootPackages() throws IOException {

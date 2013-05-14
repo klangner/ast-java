@@ -10,7 +10,7 @@ import com.klangner.ast.INode;
 
 public class PackageParserTest {
 
-	private static final String DATASET_PATH = "src/test/datasets/";
+	private static final String DATASET_PATH = "datasets/";
 	
 	@Test
 	public void packageClasses() throws IOException {

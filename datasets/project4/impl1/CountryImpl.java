@@ -1,5 +1,6 @@
+package impl1;
 
-public class Country {
+public class CountryImpl {
 
 	private String message = "My message";
 	
