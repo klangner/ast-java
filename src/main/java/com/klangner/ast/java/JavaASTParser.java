@@ -74,7 +74,7 @@ public class JavaASTParser implements IParser{
 	}
 	
 	public INode parseProjectDirectory(String packagePath, String packageName) {
-		NodeImpl rootNode = new NodeImpl(packageName);
+		PackageImpl rootNode = new PackageImpl(packageName);
 		File folder = new File(packagePath);
 		
 		if(folder.isDirectory()){
@@ -87,7 +87,7 @@ public class JavaASTParser implements IParser{
 						rootNode.addChild(node);
 					}
 					else if(file.getName().equals("module.info")){
-						INode node = new NodeImpl(file.getName());
+						INode node = new ModuleImpl(file.getName());
 						rootNode.addChild(node);
 					}
 				}
