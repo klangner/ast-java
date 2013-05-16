@@ -1,4 +1,7 @@
 
+import abc.MyClass;
+
+
 public class HelloWorld {
 
 	private String message = "My message";

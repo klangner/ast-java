@@ -33,5 +33,9 @@ public class NodeImpl implements INode {
 	public void addChild(INode node) {
 		children.add(node);
 	}
+	
+	public String toString(){
+		return name;
+	}
 
 }

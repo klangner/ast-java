@@ -9,7 +9,7 @@ import com.klangner.ast.java.grammar.JavaParser;
 class ASTBuilder extends JavaBaseListener {
 
 	private NodeImpl rootNode;
-	private INode currentNode;
+	private NodeImpl currentNode;
 	
 	
 	public ASTBuilder(String compilationUnitName){
@@ -22,7 +22,15 @@ class ASTBuilder extends JavaBaseListener {
 	
 	@Override 
 	public void enterNormalClassDeclaration(JavaParser.NormalClassDeclarationContext ctx){
-		INode node = new NodeImpl(ctx.Identifier().getText());
+		NodeImpl node = new NodeImpl(ctx.Identifier().getText());
+		rootNode.addChild(node);
+		currentNode = node;
+	}
+	
+	
+	@Override 
+	public void enterImportDeclaration(JavaParser.ImportDeclarationContext ctx){
+		NodeImpl node = new NodeImpl(ctx.qualifiedName().getText());
 		rootNode.addChild(node);
 		currentNode = node;
 	}
@@ -32,8 +40,8 @@ class ASTBuilder extends JavaBaseListener {
 	 */
 	@Override 
 	public void enterMethodDeclaration(JavaParser.MethodDeclarationContext ctx){
-		INode node = new NodeImpl(ctx.Identifier().getText());
-		rootNode.addChild(node);
+		NodeImpl node = new NodeImpl(ctx.Identifier().getText());
+		currentNode.addChild(node);
 		currentNode = node;
 	}
 
@@ -43,8 +51,8 @@ class ASTBuilder extends JavaBaseListener {
 	@Override
 	public void enterMemberDecl(JavaParser.MemberDeclContext ctx){
 		if(ctx.getChildCount() == 3){
-			INode node = new NodeImpl(ctx.Identifier().getText());
-			rootNode.addChild(node);
+			NodeImpl node = new NodeImpl(ctx.Identifier().getText());
+			currentNode.addChild(node);
 			currentNode = node;
 		}
 	}
@@ -53,7 +61,7 @@ class ASTBuilder extends JavaBaseListener {
 	public void enterVariableDeclaratorId(JavaParser.VariableDeclaratorIdContext ctx){
 		if(currentNode == rootNode){
 			INode node = new NodeImpl(ctx.Identifier().getText());
-			rootNode.addChild(node);
+			currentNode.addChild(node);
 		}
 	}
 }
