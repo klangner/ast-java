@@ -12,7 +12,6 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import com.klangner.ast.INode;
 import com.klangner.ast.IParser;
-import com.klangner.ast.impl.CompilationUnitImpl;
 import com.klangner.ast.impl.ModuleImpl;
 import com.klangner.ast.impl.NodeImpl;
 import com.klangner.ast.impl.PackageImpl;
@@ -90,11 +89,11 @@ public class JavaASTParser implements IParser{
 				File file = files[i];
 				if(file.isFile()){
 					if(file.getName().endsWith(".java")){
-						INode node = new CompilationUnitImpl(packageName+file.getName());
+						INode node = parseFile(file.getAbsolutePath());
 						rootNode.addChild(node);
 					}
 					else if(file.getName().equals("module.info")){
-						INode node = new ModuleImpl(file.getName());
+						INode node = parseModuleFile(file.getAbsolutePath());
 						rootNode.addChild(node);
 					}
 				}
@@ -106,6 +105,11 @@ public class JavaASTParser implements IParser{
 		}
 		
 		return rootNode;
+	}
+
+	private INode parseModuleFile(String fileName) {
+		INode node = new ModuleImpl(fileName);
+		return node;
 	}
 	
 }

@@ -102,4 +102,21 @@ public class ProjectParserTest {
 		
 		assertEquals(2, counter);
 	}
+	
+	@Test
+	public void compilationUnitChildren() throws IOException {
+		JavaASTParser parser = new JavaASTParser();
+		INode ast = parser.parseProject(DATASET_PATH + "project2");
+		
+		ICompilationUnit unit = null;
+		for(int i = 0; i < ast.getChildCount(); i++){
+			if(ast.getChild(i) instanceof ICompilationUnit){
+				unit = (ICompilationUnit) ast.getChild(i);
+				break;
+			}
+		}
+		
+		assertNotNull(unit);
+		assertTrue(unit.getChildCount() > 0);
+	}
 }
