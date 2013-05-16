@@ -25,7 +25,7 @@ public class JavaASTParser implements IParser{
 
 	@Override
 	public INode parseFile(String fileName) {
-        ASTBuilder builder = new ASTBuilder();
+        ASTBuilder builder = new ASTBuilder(fileName);
 
         try{
 			ParseTree tree = compileFile(fileName);
@@ -77,13 +77,16 @@ public class JavaASTParser implements IParser{
 		PackageImpl rootNode = new PackageImpl(packageName);
 		File folder = new File(packagePath);
 		
+		if(!packageName.isEmpty()){
+			packageName += ".";
+		}
 		if(folder.isDirectory()){
 			File[] files = folder.listFiles();
 			for(int i = 0; i < files.length; i++){
 				File file = files[i];
 				if(file.isFile()){
 					if(file.getName().endsWith(".java")){
-						INode node = new NodeImpl(file.getName());
+						INode node = new CompilationUnitImpl(packageName+file.getName());
 						rootNode.addChild(node);
 					}
 					else if(file.getName().equals("module.info")){
@@ -92,14 +95,7 @@ public class JavaASTParser implements IParser{
 					}
 				}
 				else{
-					String subPackageName;
-					if(packageName.isEmpty()){
-						subPackageName = file.getName();
-					}
-					else{
-						subPackageName = packageName + "." + file.getName();
-					}
-					INode node = parseProjectDirectory(file.getAbsolutePath(), subPackageName);
+					INode node = parseProjectDirectory(file.getAbsolutePath(), packageName+file.getName());
 					rootNode.addChild(node);
 				}
 			}

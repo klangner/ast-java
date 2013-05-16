@@ -9,14 +9,20 @@ class ASTBuilder extends JavaBaseListener {
 	private NodeImpl rootNode;
 	private INode currentNode;
 	
+	
+	public ASTBuilder(String compilationUnitName){
+		rootNode = new CompilationUnitImpl(compilationUnitName);
+	}
+	
 	public INode getAST() {
 		return rootNode;
 	}
 	
 	@Override 
 	public void enterNormalClassDeclaration(JavaParser.NormalClassDeclarationContext ctx){
-		rootNode = new NodeImpl(ctx.Identifier().getText());
-		currentNode = rootNode;
+		INode node = new NodeImpl(ctx.Identifier().getText());
+		rootNode.addChild(node);
+		currentNode = node;
 	}
 	
 	/**

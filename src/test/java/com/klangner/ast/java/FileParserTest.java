@@ -1,11 +1,13 @@
 package com.klangner.ast.java;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
+import com.klangner.ast.ICompilationUnit;
 import com.klangner.ast.INode;
 
 public class FileParserTest {
@@ -18,7 +20,15 @@ public class FileParserTest {
 		JavaASTParser parser = new JavaASTParser();
 		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
 		
-		assertEquals("HelloWorld", ast.getName());
+		assertEquals("datasets/project1/HelloWorld.java", ast.getName());
+	}
+
+	@Test
+	public void rootType() throws IOException {
+		JavaASTParser parser = new JavaASTParser();
+		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
+		
+		assertTrue(ast instanceof ICompilationUnit);
 	}
 
 	@Test

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.klangner.ast.ICompilationUnit;
 import com.klangner.ast.IModule;
 import com.klangner.ast.INode;
 import com.klangner.ast.IPackage;
@@ -85,5 +86,20 @@ public class ProjectParserTest {
 		}
 		
 		assertNotNull(module);
+	}
+	
+	@Test
+	public void compilationUnits() throws IOException {
+		JavaASTParser parser = new JavaASTParser();
+		INode ast = parser.parseProject(DATASET_PATH + "project2");
+		
+		int counter = 0;
+		for(int i = 0; i < ast.getChildCount(); i++){
+			if(ast.getChild(i) instanceof ICompilationUnit){
+				counter += 1;
+			}
+		}
+		
+		assertEquals(2, counter);
 	}
 }
