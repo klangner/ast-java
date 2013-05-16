@@ -1,7 +1,9 @@
 package com.klangner.ast.java;
 
 import com.klangner.ast.INode;
+import com.klangner.ast.impl.ClassImpl;
 import com.klangner.ast.impl.CompilationUnitImpl;
+import com.klangner.ast.impl.ImportImpl;
 import com.klangner.ast.impl.NodeImpl;
 import com.klangner.ast.java.grammar.JavaBaseListener;
 import com.klangner.ast.java.grammar.JavaParser;
@@ -22,7 +24,7 @@ class ASTBuilder extends JavaBaseListener {
 	
 	@Override 
 	public void enterNormalClassDeclaration(JavaParser.NormalClassDeclarationContext ctx){
-		NodeImpl node = new NodeImpl(ctx.Identifier().getText());
+		NodeImpl node = new ClassImpl(ctx.Identifier().getText());
 		rootNode.addChild(node);
 		currentNode = node;
 	}
@@ -30,7 +32,7 @@ class ASTBuilder extends JavaBaseListener {
 	
 	@Override 
 	public void enterImportDeclaration(JavaParser.ImportDeclarationContext ctx){
-		NodeImpl node = new NodeImpl(ctx.qualifiedName().getText());
+		NodeImpl node = new ImportImpl(ctx.qualifiedName().getText());
 		rootNode.addChild(node);
 		currentNode = node;
 	}

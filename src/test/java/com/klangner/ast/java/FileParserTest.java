@@ -7,7 +7,9 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.klangner.ast.IClass;
 import com.klangner.ast.ICompilationUnit;
+import com.klangner.ast.IImport;
 import com.klangner.ast.INode;
 
 public class FileParserTest {
@@ -36,17 +38,30 @@ public class FileParserTest {
 		JavaASTParser parser = new JavaASTParser();
 		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
 		
-		for(int i = 0; i < ast.getChildCount(); i++){
-			System.out.println(ast.getChild(i));
-		}
 		assertEquals(2, ast.getChildCount());
+		
+		if(ast.getChild(0) instanceof IImport){
+			assertTrue(ast.getChild(1) instanceof IClass);
+		}
+		else{
+			assertTrue(ast.getChild(0) instanceof IClass);
+			assertTrue(ast.getChild(1) instanceof IImport);
+		}
 	}
 
-//	@Test
-//	public void importStatements() throws IOException {
-//		JavaASTParser parser = new JavaASTParser();
-//		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
-//		
-//		assertEquals(4, ast.getChildCount());
-//	}
+	@Test
+	public void importText() throws IOException {
+		JavaASTParser parser = new JavaASTParser();
+		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
+		
+		IImport importNode = null;
+		for(int i = 0; i < ast.getChildCount(); i++){
+			if(ast.getChild(0) instanceof IImport){
+				importNode = (IImport) ast.getChild(0);
+				break;
+			}
+		}
+		
+		assertEquals("abc.MyClass", importNode.getName());
+	}
 }
