@@ -1,6 +1,8 @@
 package com.klangner.ast.java;
 
 import com.klangner.ast.INode;
+import com.klangner.ast.impl.CompilationUnitImpl;
+import com.klangner.ast.impl.NodeImpl;
 import com.klangner.ast.java.grammar.JavaBaseListener;
 import com.klangner.ast.java.grammar.JavaParser;
 

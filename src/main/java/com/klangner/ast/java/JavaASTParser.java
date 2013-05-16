@@ -12,6 +12,10 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import com.klangner.ast.INode;
 import com.klangner.ast.IParser;
+import com.klangner.ast.impl.CompilationUnitImpl;
+import com.klangner.ast.impl.ModuleImpl;
+import com.klangner.ast.impl.NodeImpl;
+import com.klangner.ast.impl.PackageImpl;
 import com.klangner.ast.java.grammar.JavaLexer;
 import com.klangner.ast.java.grammar.JavaParser;
 

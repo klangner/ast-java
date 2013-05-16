@@ -1,11 +1,11 @@
-package com.klangner.ast.java;
+package com.klangner.ast.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.klangner.ast.INode;
 
-class NodeImpl implements INode {
+public class NodeImpl implements INode {
 
 	private String name;
 	private List<INode> children = new ArrayList<INode>(); 
