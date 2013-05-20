@@ -22,7 +22,7 @@ public class FileParserTest {
 		JavaASTParser parser = new JavaASTParser();
 		INode ast = parser.parseFile(DATASET_PATH + "project1/HelloWorld.java");
 		
-		assertEquals("datasets/project1/HelloWorld.java", ast.getName());
+		assertEquals("datasets/project1/HelloWorld.java", ast.getText());
 	}
 
 	@Test
@@ -62,6 +62,6 @@ public class FileParserTest {
 			}
 		}
 		
-		assertEquals("abc.MyClass", importNode.getName());
+		assertEquals("abc.MyClass", importNode.getText());
 	}
 }

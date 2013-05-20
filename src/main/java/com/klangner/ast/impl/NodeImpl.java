@@ -16,7 +16,7 @@ public class NodeImpl implements INode {
 	}
 
 	@Override
-	public String getName() {
+	public String getText() {
 		return name;
 	}
 

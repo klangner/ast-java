@@ -31,7 +31,7 @@ public class ProjectParserTest {
 		INode ast = parser.parseProject(DATASET_PATH + "project4");
 		
 		assertEquals(1, ast.getChildCount());
-		assertEquals("impl1", ast.getChild(0).getName());
+		assertEquals("impl1", ast.getChild(0).getText());
 	}
 	
 	@Test
@@ -43,7 +43,7 @@ public class ProjectParserTest {
 		INode node1 = ast.getChild(0);
 		INode node2 = ast.getChild(1);
 		
-		if(node1.getName().equals("impl1")){
+		if(node1.getText().equals("impl1")){
 			assertEquals(1, node1.getChildCount());
 			assertEquals(4, node2.getChildCount());
 		}
@@ -70,7 +70,7 @@ public class ProjectParserTest {
 		assertEquals(2, ast.getChildCount());
 		INode packageNode;
 		
-		if(ast.getChild(0).getName().equals("impl2")){
+		if(ast.getChild(0).getText().equals("impl2")){
 			packageNode = ast.getChild(0);
 		}
 		else{
