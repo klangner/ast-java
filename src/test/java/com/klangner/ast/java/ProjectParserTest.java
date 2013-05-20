@@ -86,6 +86,7 @@ public class ProjectParserTest {
 		}
 		
 		assertNotNull(module);
+		assertEquals("impl2", module.getName());
 	}
 	
 	@Test

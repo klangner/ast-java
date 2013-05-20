@@ -80,8 +80,9 @@ public class JavaASTParser implements IParser{
 		PackageImpl rootNode = new PackageImpl(packageName);
 		File folder = new File(packagePath);
 		
-		if(!packageName.isEmpty()){
-			packageName += ".";
+		String subPackageName = packageName;
+		if(!subPackageName.isEmpty()){
+			subPackageName += ".";
 		}
 		if(folder.isDirectory()){
 			File[] files = folder.listFiles();
@@ -93,12 +94,12 @@ public class JavaASTParser implements IParser{
 						rootNode.addChild(node);
 					}
 					else if(file.getName().equals("module.info")){
-						INode node = parseModuleFile(file.getAbsolutePath());
+						INode node = parseModuleFile(file.getAbsolutePath(), packageName);
 						rootNode.addChild(node);
 					}
 				}
 				else{
-					INode node = parseProjectDirectory(file.getAbsolutePath(), packageName+file.getName());
+					INode node = parseProjectDirectory(file.getAbsolutePath(), subPackageName+file.getName());
 					rootNode.addChild(node);
 				}
 			}
@@ -107,8 +108,8 @@ public class JavaASTParser implements IParser{
 		return rootNode;
 	}
 
-	private INode parseModuleFile(String fileName) {
-		INode node = new ModuleImpl(fileName);
+	private INode parseModuleFile(String fileName, String packageName) {
+		INode node = new ModuleImpl(fileName, packageName);
 		return node;
 	}
 	

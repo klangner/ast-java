@@ -63,5 +63,6 @@ public class FileParserTest {
 		}
 		
 		assertEquals("abc.MyClass", importNode.getText());
+		assertEquals("abc", importNode.getPackageName());
 	}
 }
